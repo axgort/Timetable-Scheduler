@@ -5,7 +5,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'timetable_scheduler.views.home', name='home'),
+    url(r'^$', 'base.views.home', name='home'),
+    url(r'^scheduler$', 'scheduler.views.scheduler', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
