@@ -9,5 +9,5 @@ ALGORITHMS = [
 class DataForm(forms.Form):
     algorithm = forms.ChoiceField(widget=forms.Select(), choices=ALGORITHMS)
     time = forms.IntegerField(label='Time limit')
-    #path = forms.FilePathField()
-    path = forms.CharField()
+    constraints = forms.FileField(label='File')
+    #path = forms.CharField()
