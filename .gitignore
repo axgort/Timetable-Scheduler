@@ -39,3 +39,8 @@ obj/
 
 # Virtualenv
 venv/
+
+#M
+data/
+cats/
+havkPso.py
