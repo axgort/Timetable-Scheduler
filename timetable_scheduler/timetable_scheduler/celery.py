@@ -17,7 +17,15 @@ def debug_task(self):
         print('Request: {0!r}'.format(self.request))
 
 @app.task(bind=True)
-def debug_havk(self):
-    argsArray = ["python", "havkPso.py"]
-    f = open("outputFile","wb")
+def run(self, id, algorithm, timeLimit):
+    if algorithm == 'PSO':
+        scriptFile = 'runPSO.py'
+    elif algorithm == 'Tabu':
+        scriptFile = 'runPSO.py'
+    else:
+        scriptFile = 'runPSO.py'
+
+
+    argsArray = ["python", scriptFile, id, timeLimit]
+    f = open("output/"+id,"wb+")
     call(argsArray,stdout=f)

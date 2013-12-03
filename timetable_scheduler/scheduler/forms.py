@@ -2,7 +2,7 @@ from django import forms
 
 ALGORITHMS = [
     ('PSO', 'PSO'),
-    ('Tabu Search', 'Tabu Search'),
+    ('Tabu', 'Tabu Search'),
     ('Genetic', 'Genetic')
 ]
 
