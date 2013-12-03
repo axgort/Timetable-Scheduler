@@ -1,0 +1,61 @@
+{% extends "index.html" %}
+
+{% block title %}scheduler{% endblock %}
+
+{% block content %}
+
+    <div class="menu">
+        <a href="/scheduler/list">
+            <button type="button">
+            Lista zadań
+            </button>
+        </a>
+        <a href="/scheduler/add">
+            <button type="button">
+            Dadaj nowe zadanie
+            </button>
+        </a>
+        
+    <div>
+    <div class="main">
+        <h1> Lista zadań </h1>
+
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Algorithm</th>
+                <th>Time Limit</th>
+                <th>Begin Date</th>
+                <th>Status</th>
+            </tr>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ task.algorithm }}</td>
+                <td>{{ task.timeLimit }}</td>
+                <td>{{ task.date }}</td>
+                <td>{{ task.status }}</td>
+            </td>
+            {% endfor %}
+        </table>
+
+
+
+
+
+
+        <!--{% if form.errors %}-->
+            <!--<p style="color: red;">-->
+                <!--Please correct the error{{ form.errors|pluralize }} below.-->
+            <!--</p>-->
+        <!--{% endif %}-->
+
+        <!--<form action="" method="post" enctype="multipart/form-data">-->
+            <!--<table>-->
+                <!--{{ form }}-->
+            <!--</table>-->
+            <!--{% csrf_token %}-->
+            <!--<input type="submit" value="Submit">-->
+        <!--</form>-->
+    <div>
+{% endblock %}

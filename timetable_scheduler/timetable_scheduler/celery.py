@@ -17,15 +17,20 @@ def debug_task(self):
         print('Request: {0!r}'.format(self.request))
 
 @app.task(bind=True)
-def run(self, id, algorithm, timeLimit):
-    if algorithm == 'PSO':
+def run(self, task):
+    if task.algorithm == 'PSO':
         scriptFile = 'runPSO.py'
-    elif algorithm == 'Tabu':
+    elif task.algorithm == 'Tabu':
         scriptFile = 'runPSO.py'
     else:
         scriptFile = 'runPSO.py'
 
+    task.status = 'Running'
+    task.save()
 
-    argsArray = ["python", scriptFile, id, timeLimit]
-    f = open("output/"+id,"wb+")
+    argsArray = ["python", scriptFile, task.id, task.timeLimit]
+    f = open("output/" + task.id,"wb+")
     call(argsArray,stdout=f)
+
+    task.status = 'Done'
+    task.save()
