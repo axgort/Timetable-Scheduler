@@ -1,0 +1,3 @@
+[submodule "timetable_scheduler/cats"]
+	path = timetable_scheduler/cats
+	url = https://github.com/tomecki/cats
