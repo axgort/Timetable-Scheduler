@@ -43,3 +43,5 @@ venv/
 #M
 data/
 havkPso.py
+input/
+output/
