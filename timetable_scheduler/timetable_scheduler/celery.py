@@ -19,11 +19,11 @@ def debug_task(self):
 @app.task(bind=True)
 def run(self, task):
     if task.algorithm == 'PSO':
-        scriptFile = 'runPSO.py'
+        scriptFile = 'cats/runPSO.py'
     elif task.algorithm == 'Tabu':
-        scriptFile = 'runPSO.py'
+        scriptFile = 'cats/runPSO.py'
     else:
-        scriptFile = 'runPSO.py'
+        scriptFile = 'cats/runPSO.py'
 
     task.status = 'Running'
     task.save()
