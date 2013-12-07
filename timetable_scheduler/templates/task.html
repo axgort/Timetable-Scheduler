@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+
+{% block title %}scheduler{% endblock %}
+
+{% block content %}
+
+<h1>Task: {{ task.id }}</h1>
+{{ task.algorithm }}
+        {{ task.date }}
+        {{ task.status }}
+
+
+
+
+{% endblock %}

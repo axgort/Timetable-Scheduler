@@ -1,14 +1,18 @@
+
 import random
 import time
+from django.http import Http404
 
 from django.shortcuts import render, render_to_response
 from django.core.context_processors import csrf
 from django.template import RequestContext
+
+
+
+# Create your views here.
 from scheduler.forms import DataForm
 from timetable_scheduler.celery import run
 from scheduler.models import Task
-
-# Create your views here.
 
 def makeTask(id, timeLimit, algorithm):
     task = Task()
@@ -63,3 +67,11 @@ def list(request):
             context,
             context_instance=RequestContext(request)
     )
+
+def show(request, id):
+    try:
+        task = Task.objects.get(pk=id)
+
+    except:
+        raise Http404()
+    return render_to_response('task.html', {'task': task}, context_instance=RequestContext(request))
