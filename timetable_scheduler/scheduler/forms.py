@@ -11,3 +11,4 @@ class DataForm(forms.Form):
     time = forms.IntegerField(label='Time limit')
     constraints = forms.FileField(label='File')
     #path = forms.CharField()
+
