@@ -1,3 +1,4 @@
+import os
 import time
 import sys
 
@@ -12,6 +13,7 @@ timeLimit = float(sys.argv[2])
 endTime = time.time() + timeLimit
 
 c = CompetitionReader()
+
 data = c.read(fileName)
 
 pso = PSO(data, endTime)
