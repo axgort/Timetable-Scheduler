@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+
+{% block title %}Timetable{% endblock %}
+
+{% block content %}
+
+<h1>Task: {{ task.id }}</h1>
+{{ task.algorithm }}
+        {{ task.date }}
+        {{ task.status }}
+
+
+<h2> Events </h2>
+        {% for e in events %}
+        {{ e.uniqueName }} {{e.period }}
+        {% endfor %}
+
+{% endblock %}

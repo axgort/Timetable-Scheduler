@@ -10,6 +10,10 @@
         {{ task.status }}
 
 
-
+<h2> Curricula</h2>
+        {% for c in curricula %}
+        {{ c.uniqueName }}
+        <a href="{% url 'timetable' task.id c.uniqueName %}">Timetable</a>
+        {% endfor %}
 
 {% endblock %}
