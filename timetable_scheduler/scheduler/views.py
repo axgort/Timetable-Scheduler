@@ -106,6 +106,9 @@ def list(request):
             start = task.startDate.replace(tzinfo=None)
             end = start + datetime.timedelta(0,task.timeLimit)
             offset = end - datetime.datetime.now()
+            if offset < datetime.timedelta(0,0):
+                offset = 'few seconds'
+
             task.status += ' ('+ str(offset)+')'
         tasks.append(task)
 
