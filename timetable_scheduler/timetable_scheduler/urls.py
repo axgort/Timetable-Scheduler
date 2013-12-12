@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^scheduler/add$', 'scheduler.views.add', name='add'),
     url(r'^scheduler/list$', 'scheduler.views.list', name='list'),
     url(r'^scheduler/show/(?P<id>\d+)/$', 'scheduler.views.show', name='show'),
+    url(r'^scheduler/del/(?P<id>\d+)/$', 'scheduler.views.delete', name='delete'),
     url(r'^scheduler/timetable/(?P<task>\d+)/(?P<curriculum>\w+)/$', 'scheduler.views.timetable', name='timetable'),
     # url(r'^blog/', include('blog.urls')),
 

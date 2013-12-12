@@ -23,7 +23,10 @@
                 <td>{{ task.timeLimit }}</td>
                 <td>{{ task.date }}</td>
                 <td>{{ task.status }}</td>
-                <td><a href="{% url 'show' task.id %}">Details</a></td>
+                <td>
+                    <a href="{% url 'show' task.id %}">Details</a>
+                    <a href="{% url 'delete' task.id %}">Delete</a>
+                </td>
             </td>
             {% endfor %}
         </table>

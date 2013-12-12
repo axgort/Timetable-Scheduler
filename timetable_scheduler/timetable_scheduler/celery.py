@@ -30,14 +30,14 @@ def run(self, task):
     task.status = 'Running'
     task.save()
 
-    argsArray = ["python", scriptFile, task.id, task.timeLimit]
-    f = open("output/" + task.id,"wb+")
+    argsArray = ["python", scriptFile, str(task.id), task.timeLimit]
+    f = open("output/" + str(task.id),"wb+")
     call(argsArray,stdout=f)
 
     task.status = 'Done'
     task.save()
 
-    db_events_init(task.id)
+    db_events_init(str(task.id))
 
 @app.task
 def db_events_init(id):
