@@ -168,6 +168,7 @@ def timetableapi(request, task, curriculum):
                 "title": x.uniqueName,
                 "start": makestart(base, x.day, x.period),
                 "end": makeend(base, x.day, x.period),
+                "loc": x.room
             } for x in result]
         }), content_type='application/json')
 

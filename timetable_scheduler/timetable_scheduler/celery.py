@@ -38,11 +38,11 @@ def run(self, task):
 
     task.status = 'Done'
     task.save()
-    #db_events_init(str(task.id))
+    db_events_init(task.id)
 
 @app.task
 def db_events_init(id):
-    with open("output/" + id,"r") as out:
+    with open("output/" + str(id),"r") as out:
         s = map(lambda x: x.rstrip('\n'), out.readlines())
         print s
         for l in s[:-1]:
