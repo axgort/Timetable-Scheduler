@@ -26,7 +26,7 @@ def run(self, task):
     elif task.algorithm == 'Tabu':
         scriptFile = 'cats/runTabu.py'
     else:
-        scriptFile = 'cats/runPSO.py'
+        scriptFile = 'cats/runGA.py'
 
     task.status = 'Running'
     task.startDate = datetime.datetime.now()
