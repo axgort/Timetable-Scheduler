@@ -8,6 +8,8 @@ class Task(models.Model):
     timeLimit = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=30)
+    daysNum = models.IntegerField(blank=True, null=True)
+    periodsPerDay = models.IntegerField(blank=True, null=True)
 
 class Curriculum(models.Model):
     #id = models.IntegerField(primary_key=True)
@@ -27,5 +29,6 @@ class Event(models.Model):
     displayName = models.CharField(max_length=30)
     room = models.CharField(max_length=30)
     period = models.IntegerField()
+    day = models.IntegerField()
     task = models.ForeignKey('Task')
     #course = models.ForeignKey('Course')

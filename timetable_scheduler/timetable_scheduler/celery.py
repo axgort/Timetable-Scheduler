@@ -23,7 +23,7 @@ def run(self, task):
     if task.algorithm == 'PSO':
         scriptFile = 'cats/runPSO.py'
     elif task.algorithm == 'Tabu':
-        scriptFile = 'cats/runPSO.py'
+        scriptFile = 'cats/runTabu.py'
     else:
         scriptFile = 'cats/runPSO.py'
 
@@ -43,9 +43,10 @@ def run(self, task):
 def db_events_init(id):
     with open("output/" + id,"r") as out:
         s = map(lambda x: x.rstrip('\n'), out.readlines())
+        print s
         for l in s[:-1]:
             e = ModelEvent()
-            e.period, e.uniqueName, e.room = l.split()
+            e.uniqueName, e.room, e.day, e.period  = l.split()
             e.task = Task.objects.get(pk = id)
             e.save()
 

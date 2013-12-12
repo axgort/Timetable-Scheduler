@@ -14,16 +14,15 @@
         {% for e in events %}
         {{ e.uniqueName }} {{e.period }}
         {% endfor %}
-<div id="calendar">
 
-</div>
+
+            <div id="cal" class="sample-ct"></div>
 {% endblock %}
 
         {% block scripts %}
         <script type="text/javascript" src="{{STATIC_URL}}ext/Extensible-config.js"></script>
-        <script type="text/javascript" src="{{STATIC_URL}}ext/examples/calendar/TestApp/App.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}ext/examples/calendar/data/Calendars.js"></script>
-        <script type="text/javascript" src="{{STATIC_URL}}ext/examples/calendar/data/Events.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}ext/calendar.js"></script>
+
         {% endblock %}
 
 

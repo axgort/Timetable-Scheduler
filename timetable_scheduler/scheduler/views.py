@@ -1,7 +1,8 @@
+from django.core import serializers
 import os
 import random
 import time
-from django.http import Http404
+from django.http import Http404, HttpResponse
 
 from django.shortcuts import render, render_to_response
 from django.core.context_processors import csrf
@@ -16,7 +17,7 @@ from scheduler.models import Task
 from scheduler.reader import CompetitionDictReader
 from scheduler.models import Curriculum
 from scheduler.models import Event, Course
-
+import json
 
 def makeTask(id, timeLimit, algorithm):
     task = Task()
@@ -29,6 +30,7 @@ def makeTask(id, timeLimit, algorithm):
     return task
 
 def handle_uploaded_file(f, id):
+    print os.getcwd()
     with open('timetable_scheduler/input/'+id, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
@@ -37,9 +39,14 @@ def db_init(id):
     c = CompetitionDictReader()
     data = c.read(id)
     task = Task.objects.get(pk=id)
+    print ".............", data.daysNum, data.periodsPerDay
+    task.daysNum = data.daysNum
+    task.periodsPerDay = data.periodsPerDay
+    task.save()
+    print ',,,,,,,,,', task.daysNum, task.periodsPerDay
     for i in data.getAllCurricula():
         cr = Curriculum()
-        cr.task = Task.objects.get(pk=id)
+        cr.task = task
         cr.uniqueName = i.id
         cr.save()
     for i in data.getAllCourses():
@@ -101,6 +108,11 @@ def show(request, id):
     return render_to_response('task.html', {'task': task, 'curricula': curricula}, context_instance=RequestContext(request))
 
 def timetable(request, task, curriculum):
+
+    return render_to_response('timetable.html', {'task': task
+     }, context_instance=RequestContext(request))
+
+def timetableapi(request, task, curriculum):
     try:
         task = Task.objects.get(pk=task)
         c = task.curriculum_set.get(uniqueName=curriculum)
@@ -112,8 +124,21 @@ def timetable(request, task, curriculum):
         for x in r:
             for y in x:
                 result.append(y)
+        print result
+
+        return HttpResponse(json.dumps({
+            "success": True,
+            "message": "Loaded data",
+            "data": [{
+                "id": x.uniqueName,
+                "cid": 1,
+                "title": x.uniqueName,
+                "start": x.period,
+                "end": x.period+1
+            } for x in result]
+        }), content_type='application/json')
+
 
     except:
         raise Http404()
-    return render_to_response('timetable.html', {'task': task, 'events': result
-     }, context_instance=RequestContext(request))
+
