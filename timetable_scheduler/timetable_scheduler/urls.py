@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^scheduler/del/(?P<id>\d+)/$', 'scheduler.views.delete', name='delete'),
     url(r'^scheduler/timetable/(?P<task>\d+)/(?P<curriculum>\w+)/$', 'scheduler.views.timetable', name='timetable'),
     url(r'^scheduler/timetable/(?P<task>\d+)/(?P<curriculum>\w+)/json/$', 'scheduler.views.timetableapi', name='timetableapi'),
+    url(r'^accounts/login/$', 'base.views.home'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),

@@ -23,7 +23,7 @@ def login(request):
         print user
         if user is not None and user.is_active:
             auth_login(request, user)
-            return HttpResponseRedirect(reverse('base.views.home'))
+            return home(request)
     form = LoginForm()
     return render_to_response('home.html', {'loginForm': LoginForm()}, RequestContext(request))
 

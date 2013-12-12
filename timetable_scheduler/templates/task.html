@@ -11,9 +11,20 @@
 
 
 <h2> Curricula</h2>
-        {% for c in curricula %}
-        {{ c.uniqueName }}
-        <a href="{% url 'timetable' task.id c.uniqueName %}">Timetable</a>
-        {% endfor %}
+        <div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Panel heading</div>
+
+  <table class="table">
+      <thead><th>id</th><th>Curriculum name</th><th>Action</th></thead>
+    {% for c in curricula %}
+
+        <tr><td>{{ c.id }}</td><td>{{ c.uniqueName }}</td><td><a href="{% url 'timetable' task.id c.uniqueName %}">Timetable</a></td></tr>
+   {% endfor %}
+  </table>
+
+</div>
+
+
 
 {% endblock %}

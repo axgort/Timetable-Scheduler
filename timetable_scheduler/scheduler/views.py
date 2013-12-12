@@ -1,4 +1,4 @@
-from django.core import serializers
+from django.contrib.auth.decorators import login_required
 import os
 
 import datetime
@@ -70,7 +70,7 @@ def db_init(id):
 
 
 
-
+@login_required
 def add(request):
     if request.method == 'POST':
         form = DataForm(request.POST, request.FILES)
@@ -96,7 +96,7 @@ def add(request):
             context,
             context_instance=RequestContext(request)
     )
-
+@login_required
 def list(request):
     result = reversed(Task.objects.extra(order_by =['submitDate']))
 
@@ -117,7 +117,7 @@ def list(request):
             context,
             context_instance=RequestContext(request)
     )
-
+@login_required
 def show(request, id):
     try:
         task = Task.objects.get(pk=id)
@@ -125,7 +125,7 @@ def show(request, id):
     except:
         raise Http404()
     return render_to_response('task.html', {'task': task, 'curricula': curricula}, context_instance=RequestContext(request))
-
+@login_required
 def delete(request, id):
     try:
         task = Task.objects.get(pk=id)
@@ -137,7 +137,7 @@ def delete(request, id):
     task.delete()
     return HttpResponseRedirect(reverse('list'))
 
-
+@login_required
 def timetable(request, task, curriculum):
 
     return render_to_response('timetable.html', {'task': task
