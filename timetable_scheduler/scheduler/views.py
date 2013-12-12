@@ -155,7 +155,7 @@ def timetableapi(request, task, curriculum):
         for x in r:
             for y in x:
                 result.append(y)
-        #print map(lambda x: (x.uniqueName, x.day, x.period), result)
+        print map(lambda x: (x.uniqueName, x.day, x.period), result)
         year, month, day = map(lambda x: int(x), request.GET['startDate'].split('-'))
         base = datetime.datetime(year, month, day, 8)
 
