@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 import os
+import datetime
 from subprocess import call
 
 from celery import Celery
@@ -28,6 +29,7 @@ def run(self, task):
         scriptFile = 'cats/runPSO.py'
 
     task.status = 'Running'
+    task.startDate = datetime.datetime.now()
     task.save()
 
     argsArray = ["python", scriptFile, str(task.id), task.timeLimit]
@@ -36,8 +38,7 @@ def run(self, task):
 
     task.status = 'Done'
     task.save()
-
-    db_events_init(str(task.id))
+    #db_events_init(str(task.id))
 
 @app.task
 def db_events_init(id):

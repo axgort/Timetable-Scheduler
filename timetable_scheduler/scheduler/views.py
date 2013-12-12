@@ -1,7 +1,9 @@
 from django.core import serializers
 import os
 import random
+import datetime
 import time
+import copy
 from django.http import Http404, HttpResponse
 
 from django.shortcuts import render, render_to_response
@@ -19,17 +21,13 @@ from scheduler.models import Task
 from scheduler.reader import CompetitionDictReader
 from scheduler.models import Curriculum
 from scheduler.models import Event, Course
-<<<<<<< HEAD
 import json
-=======
 
 INPUT_PATH = 'timetable_scheduler/input/'
 OUTPUT_PATH = 'timetable_scheduler/output/'
->>>>>>> ce7a1eaafd6728f3c88beedb959c3960071a3e5f
 
-def makeTask(id, timeLimit, algorithm):
+def makeTask(timeLimit, algorithm):
     task = Task()
-    #task.id = id
     task.timeLimit = timeLimit
     task.algorithm = algorithm
     task.status = 'Waiting'
@@ -39,11 +37,7 @@ def makeTask(id, timeLimit, algorithm):
 
 def handle_uploaded_file(f, id):
     print os.getcwd()
-<<<<<<< HEAD
-    with open('timetable_scheduler/input/'+id, 'wb+') as destination:
-=======
     with open(INPUT_PATH + id, 'wb+') as destination:
->>>>>>> ce7a1eaafd6728f3c88beedb959c3960071a3e5f
         for chunk in f.chunks():
             destination.write(chunk)
 
@@ -80,13 +74,12 @@ def add(request):
         print "POST"
         if form.is_valid():
             print "Valid"
-            id = str(random.randint(1, 100000))
             cd = form.cleaned_data
-            task = makeTask(id, str(cd['time']), cd['algorithm'])
+            task = makeTask(str(cd['time']), cd['algorithm'])
             handle_uploaded_file(request.FILES['constraints'], str(task.id))
 
             print task.id
-            db_init(str(task.id))
+            #db_init(str(task.id))
             run.delay(task)
     else:
         form = DataForm()
@@ -101,7 +94,16 @@ def add(request):
     )
 
 def list(request):
-    tasks = reversed(Task.objects.extra(order_by =['date']))
+    result = reversed(Task.objects.extra(order_by =['submitDate']))
+
+    tasks = []
+    for task in result:
+        if task.status == 'Running':
+            start = task.startDate.replace(tzinfo=None)
+            end = start + datetime.timedelta(0,task.timeLimit)
+            offset = end - datetime.datetime.now()
+            task.status += ' ('+ str(offset)+')'
+        tasks.append(task)
 
     context = {'tasks': tasks}
     context.update(csrf(request))

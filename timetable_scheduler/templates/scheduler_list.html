@@ -12,7 +12,8 @@
                 <th>Id</th>
                 <th>Algorithm</th>
                 <th>Time Limit</th>
-                <th>Begin Date</th>
+                <th>Submit Date</th>
+                <th>Start Date</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -21,7 +22,12 @@
                 <td>{{ task.id }}</td>
                 <td>{{ task.algorithm }}</td>
                 <td>{{ task.timeLimit }}</td>
-                <td>{{ task.date }}</td>
+                <td>{{ task.submitDate }}</td>
+                {% if task.startDate == None %}
+                    <td>Not started yet</td>
+                {% else %}
+                    <td>{{ task.startDate }}</td>
+                {% endif %}
                 <td>{{ task.status }}</td>
                 <td>
                     <a href="{% url 'show' task.id %}">Details</a>
