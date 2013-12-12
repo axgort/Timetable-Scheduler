@@ -8,8 +8,8 @@ class Task(models.Model):
     timeLimit = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=30)
-    daysNum = models.IntegerField(blank=True, null=True)
-    periodsPerDay = models.IntegerField(blank=True, null=True)
+    daysNum = models.IntegerField(null=True)
+    periodsPerDay = models.IntegerField(null=True)
 
 class Curriculum(models.Model):
     #id = models.IntegerField(primary_key=True)
