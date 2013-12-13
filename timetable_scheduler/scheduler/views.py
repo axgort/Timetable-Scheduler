@@ -20,7 +20,7 @@ from scheduler.models import Task
 from scheduler.reader import CompetitionDictReader
 from scheduler.models import Curriculum
 from scheduler.models import Event, Course
-import json
+import json, csv
 
 
 
@@ -185,3 +185,33 @@ def makestart(base, day, period):
 
 def makeend(base, day, period):
     return (base+datetime.timedelta(days=day, hours=period+1)).isoformat()
+
+
+def csvstart(base, day, period):
+    r = base+datetime.timedelta(days=day, hours=period)
+    return [r.date().isoformat(), r.time().isoformat()]
+
+def csvend(base, day, period):
+    r = base+datetime.timedelta(days=day, hours=period+1)
+    return [r.date().isoformat(), r.time().isoformat()]
+
+def timetablecsv(request, task):
+
+
+    base = datetime.datetime.now() + datetime.timedelta(days=-datetime.date.today().weekday(), weeks=1)
+    base = base.replace(hour=8, minute=0, second=0, microsecond=0)
+    response = HttpResponse(mimetype="text/csv")
+    response['Content-Disposition'] = 'attachment; filename=calendar.csv'
+
+    writer = csv.writer(response)
+    writer.writerow("Subject,Start Date,Start Time,End Date,End Time,Location".split(','))
+    try:
+        ev = Event.objects.filter(task=task)
+        for e in ev:
+            writer.writerow([e.uniqueName] + csvstart(base, e.day, e.period)+ csvend(base, e.day, e.period) +[e.room])
+
+        return response
+
+    except Exception as e:
+        print e
+        raise Http404()
